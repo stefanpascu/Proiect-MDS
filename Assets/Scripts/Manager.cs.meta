@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: af8c04b3b08b9b64098db69e1be59f17
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - route: {instanceID: 0}
+  - pion1: {instanceID: 0}
+  - pion2: {instanceID: 0}
+  - pion3: {instanceID: 0}
+  - pion4: {instanceID: 0}
+  - nrStones: {instanceID: 0}
+  - lt: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
