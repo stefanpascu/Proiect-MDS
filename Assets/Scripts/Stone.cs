@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class Stone : MonoBehaviour
 {
@@ -65,8 +66,8 @@ public class Stone : MonoBehaviour
         // Afiseaza mesajul de finish game atunci cand ajungem pe ultima casuta
         if (routePosition == currentRoute.childNodeList.Count - 1)
         {
-            backImg.gameObject.SetActive(true);
-            congrats.gameObject.SetActive(true);
+            SceneManager.LoadScene(4);
+            StartCoroutine(IncrementGameFinished());
         }
 
     }
@@ -166,4 +167,21 @@ public class Stone : MonoBehaviour
 
     }
 
+    IEnumerator IncrementGameFinished()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("userId", DBManager.userId.ToString());
+        UnityWebRequest www = UnityWebRequest.Post("http://localhost/mds_db/gameFinish.php", form);
+        yield return www.SendWebRequest();
+
+        if (www.downloadHandler.text[0] == '0')
+        {
+            DBManager.gamesFinished = int.Parse(www.downloadHandler.text.Split('\t')[1]);
+            Debug.Log("Game Finished Succesfully");
+        }
+        else
+        {
+            Debug.Log("Game Finish Failed. Error #" + www.downloadHandler.text);
+        }
+    }
 }
